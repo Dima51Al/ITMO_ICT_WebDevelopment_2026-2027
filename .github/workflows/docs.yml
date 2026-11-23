@@ -1,11 +1,10 @@
 name: Publish MkDocs
 on:
   push:
-    branches: [codex/lab1-afanasyev]
+    branches: [main]
     paths:
       - mkdocs.yml
-      - students/k3340/laboratory_works/Afanasyev_Dmitry/laboratory_work_1/docs/**
-      - students/k3340/laboratory_works/Afanasyev_Dmitry/laboratory_work_1/requirements-docs.txt
+      - docs/index.md
       - .github/workflows/docs.yml
   workflow_dispatch:
 permissions:
@@ -20,13 +19,25 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
-          ref: codex/lab1-afanasyev
+          ref: lab1
+          path: sources/lab1
+      - uses: actions/checkout@v4
+        with:
+          ref: lab2
+          path: sources/lab2
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - run: pip install -r students/k3340/laboratory_works/Afanasyev_Dmitry/laboratory_work_1/requirements-docs.txt
-      - run: mkdocs build --strict
+      - name: Build both lab reports
+        run: |
+          lab1=sources/lab1/students/к3340/Afanasyev_Dmitry/laboratory_work_1
+          lab2=sources/lab2/students/к3340/Afanasyev_Dmitry/laboratory_work_2
+          pip install -r "$lab1/requirements-docs.txt"
+          cp -R "$lab1/docs/lr1" docs/lr1
+          cp -R "$lab2/docs" docs/lr2
+          mkdocs build --strict
       - uses: actions/upload-pages-artifact@v3
         with:
           path: site

@@ -1,0 +1,27 @@
+site_name: Веб-программирование. Афанасьев Дмитрий. к3340
+theme:
+  name: material
+  language: ru
+nav:
+  - Главная: index.md
+  - ЛР1. Работа с сокетами:
+      - Отчёт: lr1/report.md
+      - Исходный код: lr1/code.md
+  - ЛР2. Табло авиаперелётов:
+      - Обзор: lr2/index.md
+      - Отчёт: lr2/report.md
+      - Модель и архитектура: lr2/architecture.md
+      - Практики: lr2/practices.md
+      - Проверка и защита: lr2/verification.md
+markdown_extensions:
+  - admonition
+  - tables
+  - pymdownx.details
+  - pymdownx.snippets:
+      check_paths: true
+      base_path: sources/lab1/students/к3340/Afanasyev_Dmitry/laboratory_work_1
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
